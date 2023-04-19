@@ -1,4 +1,4 @@
-namespace MeetupBoard
+namespace MeetupBoard.Api
 {
     public class WeatherForecast
     {

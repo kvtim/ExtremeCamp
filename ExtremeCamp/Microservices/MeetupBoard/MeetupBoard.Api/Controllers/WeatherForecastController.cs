@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace MeetupBoard.Controllers
+namespace MeetupBoard.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
