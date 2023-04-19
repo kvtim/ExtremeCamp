@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetupBoard.Api", "Microservices\MeetupBoard\MeetupBoard.Api\MeetupBoard.Api.csproj", "{794D4E86-0012-4100-81D9-F8229F9165D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MeetupBoard.Api", "Microservices\MeetupBoard\MeetupBoard.Api\MeetupBoard.Api.csproj", "{794D4E86-0012-4100-81D9-F8229F9165D9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{1BF9CD93-3AD3-422E-A138-F261E84FE491}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MeetupBoard", "MeetupBoard", "{5298F487-3C20-4AD8-976B-07B5708CAD7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MeetupBoard.Core", "Microservices\MeetupBoard\MeetupBoard.Core\MeetupBoard.Core.csproj", "{1B3C345E-6D6D-4B4B-BE2C-65EA9E9B8126}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		{794D4E86-0012-4100-81D9-F8229F9165D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{794D4E86-0012-4100-81D9-F8229F9165D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{794D4E86-0012-4100-81D9-F8229F9165D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B3C345E-6D6D-4B4B-BE2C-65EA9E9B8126}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B3C345E-6D6D-4B4B-BE2C-65EA9E9B8126}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B3C345E-6D6D-4B4B-BE2C-65EA9E9B8126}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B3C345E-6D6D-4B4B-BE2C-65EA9E9B8126}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -26,6 +32,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{794D4E86-0012-4100-81D9-F8229F9165D9} = {5298F487-3C20-4AD8-976B-07B5708CAD7F}
 		{5298F487-3C20-4AD8-976B-07B5708CAD7F} = {1BF9CD93-3AD3-422E-A138-F261E84FE491}
+		{1B3C345E-6D6D-4B4B-BE2C-65EA9E9B8126} = {5298F487-3C20-4AD8-976B-07B5708CAD7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {04F8EEE9-BED4-4607-ACF4-DAC84E7015D4}
