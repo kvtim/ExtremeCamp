@@ -23,7 +23,7 @@ namespace Spots.Data.Spots.Commands.DeleteSpot
 
             if (spot == null)
             {
-                throw new Exception("Spot doesn't exist!");
+                throw new KeyNotFoundException("Spot doesn't exist!");
             }
 
             await _repository.RemoveAsync(spot);

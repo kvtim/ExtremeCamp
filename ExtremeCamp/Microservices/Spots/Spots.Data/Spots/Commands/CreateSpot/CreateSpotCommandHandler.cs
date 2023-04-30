@@ -27,7 +27,7 @@ namespace Spots.Data.Spots.Commands.CreateSpot
 
             if (spot != null)
             {
-                throw new Exception("Spot already exists!");
+                throw new ArgumentException("Spot already exists!");
             }
 
             await _repository.AddAsync(request.Spot);

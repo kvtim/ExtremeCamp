@@ -27,7 +27,7 @@ namespace Spots.Data.Spots.Commands.UpdateSpot
 
             if (spot == null)
             {
-                throw new Exception("Spot doesn't exist!");
+                throw new KeyNotFoundException("Spot doesn't exist!");
             }
 
             spot.Name = request.UpdateSpotDto.Name;

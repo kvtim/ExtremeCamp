@@ -27,7 +27,7 @@ namespace Sports.Data.Sports.Queries.GetAllSports
 
             if (!sports.Any())
             {
-                throw new Exception("Sports don't exist!");
+                throw new KeyNotFoundException("Sports don't exist!");
             }
 
             return _mapper.Map<IEnumerable<SportDto>>(sports);

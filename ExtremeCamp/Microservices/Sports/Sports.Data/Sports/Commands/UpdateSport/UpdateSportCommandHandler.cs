@@ -27,7 +27,7 @@ namespace Sports.Data.Sports.Commands.UpdateSport
 
             if (sport == null)
             {
-                throw new Exception("Sport doesn't exist!");
+                throw new KeyNotFoundException("Sport doesn't exist!");
             }
 
             sport.Name = request.UpdateSportDto.Name;

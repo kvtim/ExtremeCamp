@@ -23,7 +23,7 @@ namespace Sports.Data.Sports.Commands.DeleteSport
 
             if (sport == null)
             {
-                throw new Exception("Sport doesn't exist!");
+                throw new KeyNotFoundException("Sport doesn't exist!");
             }
 
             await _repository.RemoveAsync(sport);

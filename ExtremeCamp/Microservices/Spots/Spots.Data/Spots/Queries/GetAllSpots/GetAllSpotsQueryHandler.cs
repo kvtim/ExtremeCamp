@@ -27,7 +27,7 @@ namespace Spots.Data.Spots.Queries.GetAllSpots
 
             if (!spots.Any())
             {
-                throw new Exception("Spots don't exist!");
+                throw new KeyNotFoundException("Spots don't exist!");
             }
 
             return _mapper.Map<IEnumerable<SpotDto>>(spots);

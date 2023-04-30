@@ -27,7 +27,7 @@ namespace Sports.Data.Sports.Commands.CreateSport
 
             if (sport != null)
             {
-                throw new Exception("Sport already exists!");
+                throw new ArgumentException("Sport already exists!");
             }
 
             await _repository.AddAsync(request.Sport);

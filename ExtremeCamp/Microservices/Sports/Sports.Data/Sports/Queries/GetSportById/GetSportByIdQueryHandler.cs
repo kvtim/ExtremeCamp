@@ -27,7 +27,7 @@ namespace Sports.Data.Sports.Queries.GetSportById
 
             if (sport == null)
             {
-                throw new Exception("Sport doesn't exists!");
+                throw new KeyNotFoundException("Sport doesn't exists!");
             }
 
             return _mapper.Map<SportDto>(sport);

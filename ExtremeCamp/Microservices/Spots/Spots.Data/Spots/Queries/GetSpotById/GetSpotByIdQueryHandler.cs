@@ -27,7 +27,7 @@ namespace Spots.Data.Spots.Queries.GetSpotById
 
             if (spot == null)
             {
-                throw new Exception("Sport doesn't exists!");
+                throw new KeyNotFoundException("Sport doesn't exists!");
             }
 
             return _mapper.Map<SpotDto>(spot);
