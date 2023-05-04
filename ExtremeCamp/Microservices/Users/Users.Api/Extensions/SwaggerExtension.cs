@@ -12,7 +12,7 @@ namespace Users.Api.Extensions
     {
         public static void ConfigureSwagger(this IServiceCollection services)
         {
-            services.AddSwaggerGen(options =>
+            services.AddSwaggerGen(options => 
             {
                 options.SwaggerDoc(
                     "v1",
