@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MassTransit;
 
 namespace Meetups.Api.Extensions
 {
@@ -16,6 +17,8 @@ namespace Meetups.Api.Extensions
         this IServiceCollection services,
          ConfigurationManager configuration)
         {
+            services.AddJWTAuthentication(configuration);
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
@@ -30,8 +33,13 @@ namespace Meetups.Api.Extensions
 
             services.AddControllersWithJsonConfiguration();
 
+            services.AddMassTransit(config => {
+                config.UsingRabbitMq((ctx, cfg) => {
+                    cfg.Host(configuration["EventBusSettings:HostAddress"]);
+                });
+            });
+
             services.AddEndpointsApiExplorer();
-            services.AddSwaggerGen();
 
             services.ConfigureSwagger();
         }

@@ -11,5 +11,8 @@ namespace Meetups.Data.Meetups.Commands.DeleteParticipant
     {
         public int MeetupId { get; set; }
         public int UserId { get; set; }
+
+        public int CurrentUserId { get; set; }
+        public string Role { get; set; }
     }
 }

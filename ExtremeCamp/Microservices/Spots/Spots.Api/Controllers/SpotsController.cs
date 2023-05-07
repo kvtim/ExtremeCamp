@@ -16,6 +16,7 @@ namespace Spots.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SpotsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -28,6 +29,7 @@ namespace Spots.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllSpots()
         {
             var spots = await _mediator.Send(new GetAllSpotsQuery());
@@ -36,6 +38,7 @@ namespace Spots.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var spot = await _mediator.Send(new GetSpotByIdQuery()
@@ -47,6 +50,7 @@ namespace Spots.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add(
             [FromBody] CreateSpotDto createSpotDto)
         {
@@ -58,6 +62,7 @@ namespace Spots.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id,
             [FromBody] UpdateSpotDto updateSpotDto)
         {
@@ -71,6 +76,7 @@ namespace Spots.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             await _mediator.Send(new DeleteSpotCommand()

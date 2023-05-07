@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +15,5 @@ namespace Meetups.Core.Dtos.Meetup
         public required string? Address { get; set; }
 
         public required DateTime MeetupDate { get; set; }
-
-        public required int OwnerId { get; set; }
     }
 }

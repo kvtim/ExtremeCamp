@@ -14,23 +14,32 @@ using System.Data;
 using Meetups.Core.Dtos.Participant;
 using Meetups.Data.Meetups.Commands.AddParticipant;
 using Meetups.Data.Meetups.Commands.DeleteParticipant;
+using MassTransit;
+using EventBus.Messages.Requests;
 
 namespace Meetups.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MeetupsController : ControllerBase
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        IRequestClient<GetUserByUsername> _client;
 
-        public MeetupsController(IMediator mediator, IMapper mapper)
+        public MeetupsController(
+            IMediator mediator,
+            IMapper mapper,
+            IRequestClient<GetUserByUsername> client)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _client = client;
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllMeetups()
         {
             var meetups = await _mediator.Send(new GetAllMeetupsQuery());
@@ -39,6 +48,7 @@ namespace Meetups.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var meetup = await _mediator.Send(new GetMeetupByIdQuery()
@@ -53,20 +63,38 @@ namespace Meetups.Api.Controllers
         public async Task<IActionResult> Add(
             [FromBody] CreateMeetupDto createMeetupDto)
         {
-            var meetup = await _mediator.Send(new CreateMeetupCommand()
+            var userResponse = await _client.GetResponse<GetUserByUserNameResult>(
+                new GetUserByUsername()
+                {
+                    Username = User.Identity.Name
+                });
+
+            var meetup = _mapper.Map<Meetup>(createMeetupDto);
+            meetup.OwnerId = userResponse.Message.UserId;
+
+            var meetupResult = await _mediator.Send(new CreateMeetupCommand()
             {
                 Meetup = _mapper.Map<Meetup>(createMeetupDto)
             });
-            return Ok(meetup);
+
+            return Ok(meetupResult);
         }
 
         [HttpPost("add-participant")]
         public async Task<IActionResult> AddParticipant(
             [FromBody] AddParticipantDto addParticipantDto)
         {
+            var userResponse = await _client.GetResponse<GetUserByUserNameResult>(
+                new GetUserByUsername()
+                {
+                    Username = User.Identity.Name
+                });
+
             var meetup = await _mediator.Send(new AddParticipantCommand()
             {
-                Participant = _mapper.Map<Participant>(addParticipantDto)
+                Participant = _mapper.Map<Participant>(addParticipantDto),
+                UserId = userResponse.Message.UserId,
+                Role = userResponse.Message.Role
             });
 
             return Ok(meetup);
@@ -76,10 +104,18 @@ namespace Meetups.Api.Controllers
         public async Task<IActionResult> DeleteParticipant(
             [FromBody] DeleteParticipantDto deleteParticipantDto)
         {
+            var userResponse = await _client.GetResponse<GetUserByUserNameResult>(
+                new GetUserByUsername()
+                {
+                    Username = User.Identity.Name
+                });
+
             await _mediator.Send(new DeleteParticipantCommand()
             {
                 MeetupId = deleteParticipantDto.MeetupId,
-                UserId = deleteParticipantDto.UserId
+                UserId = deleteParticipantDto.UserId,
+                CurrentUserId = userResponse.Message.UserId,
+                Role = userResponse.Message.Role
             });
 
             return Ok();
@@ -89,10 +125,18 @@ namespace Meetups.Api.Controllers
         public async Task<IActionResult> Update(int id,
             [FromBody] UpdateMeetupDto updateMeetupDto)
         {
+            var userResponse = await _client.GetResponse<GetUserByUserNameResult>(
+                new GetUserByUsername()
+                {
+                    Username = User.Identity.Name
+                });
+
             var meetup = await _mediator.Send(new UpdateMeetupCommand()
             {
                 Id = id,
-                UpdateMeetupDto = updateMeetupDto
+                UpdateMeetupDto = updateMeetupDto,
+                UserId = userResponse.Message.UserId,
+                Role = userResponse.Message.Role
             });
 
             return Ok(meetup);
@@ -101,9 +145,17 @@ namespace Meetups.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            var userResponse = await _client.GetResponse<GetUserByUserNameResult>(
+                new GetUserByUsername()
+                {
+                    Username = User.Identity.Name
+                });
+
             await _mediator.Send(new DeleteMeetupCommand()
             {
-                Id = id
+                Id = id,
+                UserId = userResponse.Message.UserId,
+                Role = userResponse.Message.Role
             });
 
             return Ok();

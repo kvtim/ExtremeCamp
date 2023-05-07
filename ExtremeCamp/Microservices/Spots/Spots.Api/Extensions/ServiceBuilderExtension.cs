@@ -16,6 +16,8 @@ namespace Spots.Api.Extensions
         this IServiceCollection services,
          ConfigurationManager configuration)
         {
+            services.AddJWTAuthentication(configuration);
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));

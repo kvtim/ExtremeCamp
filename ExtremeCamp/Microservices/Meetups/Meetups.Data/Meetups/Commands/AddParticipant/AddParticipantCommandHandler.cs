@@ -38,12 +38,17 @@ namespace Meetups.Data.Meetups.Commands.AddParticipant
                 throw new ArgumentException("Participant already exists");
             }
 
+            if (request.Role != "Admin" && request.UserId != request.Participant.UserId)
+            {
+                throw new ArgumentException("You can add to participants only you");
+            }
+
             request.Participant.Meetup = meetup;
 
             meetup.Participants.Add(request.Participant);
 
-            _repository.UpdateAsync(meetup);
-            _repository.SaveChangesAsync();
+            await _repository.UpdateAsync(meetup);
+            await _repository.SaveChangesAsync();
 
             return _mapper.Map<MeetupDto>(meetup);
         }

@@ -87,6 +87,20 @@ namespace Users.Api.Controllers
             return ApiResult.Ok(_mapper.Map<UserDetailsDto>(userResult.Value));
         }
 
+        [HttpGet("me")]
+        [Authorize]
+        public async Task<ApiResult<UserDetailsDto>> GetCurrentUser()
+        {
+            var userResult = await _userService.GetByUserNameAsync(User.Identity.Name);
+
+            if (!userResult.Succeeded)
+            {
+                return ApiResult.Failure(userResult.Error);
+            }
+
+            return ApiResult.Ok(_mapper.Map<UserDetailsDto>(userResult.Value));
+        }
+
         [HttpPut("{id}")]
         public async Task<ApiResult<UserDto>> Update(int id, [FromBody] UpdateUserDto updateUserDto)
         {

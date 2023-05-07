@@ -15,6 +15,7 @@ using Users.Core.Repositories;
 using Users.Core.Security;
 using Users.Core.Services;
 using Users.Core.UnitOfWork;
+using Users.Api.EventBusConsumer;
 
 namespace Users.Api.Extensions
 {
@@ -49,6 +50,10 @@ namespace Users.Api.Extensions
             services.AddControllersWithJsonConfiguration();
 
             services.AddEndpointsApiExplorer();
+
+            services.ConfigureMassTransit(configuration);
+
+            services.AddScoped<GetUserByUserNameConsumer>();
 
             services.ConfigureSwagger();
         }

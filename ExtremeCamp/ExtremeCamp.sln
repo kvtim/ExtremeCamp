@@ -33,11 +33,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.Data", "Microservices
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Users.Services", "Microservices\Users\Users.Services\Users.Services.csproj", "{B03C78C8-47A1-4BB4-9710-36CB367A73CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meetups.Api", "Microservices\Meetups\Meetups.Api\Meetups.Api.csproj", "{5967490D-F51C-4361-B219-7C8C181B7881}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meetups.Api", "Microservices\Meetups\Meetups.Api\Meetups.Api.csproj", "{5967490D-F51C-4361-B219-7C8C181B7881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meetups.Core", "Microservices\Meetups\Meetups.Core\Meetups.Core.csproj", "{9BDE2BAE-B9A4-439A-ABAC-ED5163ADC781}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meetups.Core", "Microservices\Meetups\Meetups.Core\Meetups.Core.csproj", "{9BDE2BAE-B9A4-439A-ABAC-ED5163ADC781}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Meetups.Data", "Microservices\Meetups\Meetups.Data\Meetups.Data.csproj", "{87C624AA-E0B0-4F9A-8E9F-170FDBF586F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Meetups.Data", "Microservices\Meetups\Meetups.Data\Meetups.Data.csproj", "{87C624AA-E0B0-4F9A-8E9F-170FDBF586F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{2D0F75FF-ED67-4D58-963D-F8D3E5F268E6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{E5F4E18C-9048-415A-96CA-0400DFF0377B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EventBus", "EventBus", "{7B88BF85-93FD-469A-A5EB-75BC7826868C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.Messages", "Common\EventBus\EventBus.Messages\EventBus.Messages.csproj", "{0AB62BF2-C095-417F-A9CA-93E0245FAFA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,6 +105,14 @@ Global
 		{87C624AA-E0B0-4F9A-8E9F-170FDBF586F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87C624AA-E0B0-4F9A-8E9F-170FDBF586F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87C624AA-E0B0-4F9A-8E9F-170FDBF586F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D0F75FF-ED67-4D58-963D-F8D3E5F268E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D0F75FF-ED67-4D58-963D-F8D3E5F268E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D0F75FF-ED67-4D58-963D-F8D3E5F268E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D0F75FF-ED67-4D58-963D-F8D3E5F268E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AB62BF2-C095-417F-A9CA-93E0245FAFA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB62BF2-C095-417F-A9CA-93E0245FAFA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB62BF2-C095-417F-A9CA-93E0245FAFA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB62BF2-C095-417F-A9CA-93E0245FAFA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,6 +135,9 @@ Global
 		{5967490D-F51C-4361-B219-7C8C181B7881} = {C1EFEB2D-07C1-4485-A81B-55DE3D73B6A8}
 		{9BDE2BAE-B9A4-439A-ABAC-ED5163ADC781} = {C1EFEB2D-07C1-4485-A81B-55DE3D73B6A8}
 		{87C624AA-E0B0-4F9A-8E9F-170FDBF586F7} = {C1EFEB2D-07C1-4485-A81B-55DE3D73B6A8}
+		{2D0F75FF-ED67-4D58-963D-F8D3E5F268E6} = {1304E3C8-6468-4A50-AA36-5B8729FEA058}
+		{7B88BF85-93FD-469A-A5EB-75BC7826868C} = {E5F4E18C-9048-415A-96CA-0400DFF0377B}
+		{0AB62BF2-C095-417F-A9CA-93E0245FAFA5} = {7B88BF85-93FD-469A-A5EB-75BC7826868C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F9DAFAE1-C9AC-42A8-8046-7D30C4744A64}

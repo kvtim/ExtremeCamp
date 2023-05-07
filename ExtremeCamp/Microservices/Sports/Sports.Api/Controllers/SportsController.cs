@@ -16,6 +16,7 @@ namespace Sports.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class SportsController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -28,6 +29,7 @@ namespace Sports.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAllSports()
         {
             var sports = await _mediator.Send(new GetAllSportsQuery());
@@ -36,6 +38,7 @@ namespace Sports.Api.Controllers
         }
 
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var sport = await _mediator.Send(new GetSportByIdQuery()
@@ -47,6 +50,7 @@ namespace Sports.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Add(
             [FromBody] CreateSportDto createSportDto)
         {
@@ -58,6 +62,7 @@ namespace Sports.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(int id,
             [FromBody] UpdateSportDto updateSportDto)
         {
@@ -71,6 +76,7 @@ namespace Sports.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             await _mediator.Send(new DeleteSportCommand()

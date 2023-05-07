@@ -12,5 +12,8 @@ namespace Meetups.Data.Meetups.Commands.UpdateMeetup
     {
         public int Id { get; set; }
         public UpdateMeetupDto UpdateMeetupDto { get; set; }
+
+        public int UserId { get; set; }
+        public string Role { get; set; }
     }
 }

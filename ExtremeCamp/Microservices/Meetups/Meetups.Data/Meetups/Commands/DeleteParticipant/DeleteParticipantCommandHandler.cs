@@ -42,10 +42,17 @@ namespace Meetups.Data.Meetups.Commands.DeleteParticipant
                 throw new ArgumentException("Participant doesn't exists");
             }
 
+            if (request.Role != "Admin" &&
+                meetup.OwnerId != request.CurrentUserId &&
+                request.UserId != request.CurrentUserId)
+            {
+                throw new ArgumentException("You can refuse to participate only you");
+            }
+
             meetup.Participants.Remove(participant);
 
-            _repository.UpdateAsync(meetup);
-            _repository.SaveChangesAsync();
+            await _repository.UpdateAsync(meetup);
+            await _repository.SaveChangesAsync();
 
             return Unit.Value;
         }

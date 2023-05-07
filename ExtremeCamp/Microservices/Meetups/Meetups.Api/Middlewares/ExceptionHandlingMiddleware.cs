@@ -25,21 +25,21 @@ namespace Meetups.Api.Middlewares
                 await HandleExceptionAsync(httpContext, 
                     ex.Message,
                     HttpStatusCode.NotFound,
-                    "Entity not found");
+                    ex.Message ?? "Entity not found");
             }
             catch(ArgumentException ex)
             {
                 await HandleExceptionAsync(httpContext, 
                     ex.Message,
                     HttpStatusCode.BadRequest,
-                    "Data is not valid");
+                    ex.Message ?? "Data is not valid");
             }
             catch (Exception ex)
             {
                 await HandleExceptionAsync(httpContext,
                     ex.Message,
                     HttpStatusCode.InternalServerError,
-                    "Internal server error");
+                    ex.Message ?? "Internal server error");
             }
         }
 

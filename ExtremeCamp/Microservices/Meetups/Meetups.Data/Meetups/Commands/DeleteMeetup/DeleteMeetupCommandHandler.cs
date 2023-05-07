@@ -26,6 +26,11 @@ namespace Meetups.Data.Meetups.Commands.DeleteMeetup
                 throw new KeyNotFoundException("Meetup doesn't exist!");
             }
 
+            if (request.Role != "Admin" && meetup.OwnerId != request.UserId)
+            {
+                throw new ArgumentException("You can delete only your meetup");
+            }
+
             await _repository.RemoveAsync(meetup);
             await _repository.SaveChangesAsync();
 

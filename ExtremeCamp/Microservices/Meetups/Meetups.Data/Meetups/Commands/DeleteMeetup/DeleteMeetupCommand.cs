@@ -10,5 +10,7 @@ namespace Meetups.Data.Meetups.Commands.DeleteMeetup
     public class DeleteMeetupCommand : IRequest<Unit>
     {
         public int Id { get; set; }
+        public int UserId { get; set; }
+        public string Role { get; set; }
     }
 }

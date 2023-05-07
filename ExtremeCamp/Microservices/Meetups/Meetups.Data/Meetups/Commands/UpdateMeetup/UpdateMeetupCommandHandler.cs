@@ -30,6 +30,11 @@ namespace Meetups.Data.Meetups.Commands.UpdateMeetup
                 throw new KeyNotFoundException("Meetup doesn't exist!");
             }
 
+            if (request.Role != "Admin" && meetup.OwnerId != request.UserId)
+            {
+                throw new ArgumentException("You can update only your meetup");
+            }
+
             meetup.Title = request.UpdateMeetupDto.Title;
             meetup.Description = request.UpdateMeetupDto.Description;
             meetup.Sport = request.UpdateMeetupDto.Sport;

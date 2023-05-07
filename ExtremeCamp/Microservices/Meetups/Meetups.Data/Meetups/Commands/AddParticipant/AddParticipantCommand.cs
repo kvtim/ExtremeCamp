@@ -12,5 +12,7 @@ namespace Meetups.Data.Meetups.Commands.AddParticipant
     public class AddParticipantCommand : IRequest<MeetupDto>
     {
         public Participant Participant { get; set; }
+        public int UserId { get; set; }
+        public string Role { get; set; }
     }
 }
