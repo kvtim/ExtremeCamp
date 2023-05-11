@@ -44,6 +44,17 @@ namespace Users.Services.Services
                 return Result.Failure(ErrorType.BadRequest, "Password is incorrect");
             }
 
+            if (user.Subscription.SubscriptionType != SubscriptionTypes.FREE &&
+                user.Subscription.EndDate <= DateTime.Now)
+            {
+                user.Subscription.SubscriptionType = SubscriptionTypes.FREE;
+                user.Subscription.StartDate = DateTime.Now;
+                user.Subscription.EndDate = null;
+
+                await _unitOfWork.UserRepository.UpdateAsync(user);
+                await _unitOfWork.CommitAsync();
+            }
+
             return Result.Ok(await _tokenService.CreateToken(user));
         }
     }

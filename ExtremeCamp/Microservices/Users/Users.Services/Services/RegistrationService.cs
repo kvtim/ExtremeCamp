@@ -45,6 +45,11 @@ namespace Users.Services.Services
             user = _mapper.Map<User>(registerUserDto);
             user.Password = _hasher.Hash(user.Password);
 
+            user.Subscription = new Subscription()
+            {
+                SubscriptionType = SubscriptionTypes.FREE
+            };
+
             await _unitOfWork.UserRepository.AddAsync(user);
             await _unitOfWork.CommitAsync();
 

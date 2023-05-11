@@ -7,6 +7,7 @@ using Users.Core.Models;
 using Users.Core.Services;
 using Users.Core.Dtos.User;
 using Users.Core.ErrorHandling;
+using Users.Core.Dtos.Subscription;
 
 namespace Users.Api.Controllers
 {
@@ -122,10 +123,26 @@ namespace Users.Api.Controllers
         }
 
         [HttpPut("change-password")]
-        public async Task<ApiResult<UserDto>> ChangePassword([FromBody] ChangePasswordDto changePasswordDto)
+        public async Task<ApiResult<UserDto>> ChangePassword(
+            [FromBody] ChangePasswordDto changePasswordDto)
         {
             var userResult = await _userService.ChangePassword(User.Identity.Name, changePasswordDto);
 
+
+            if (!userResult.Succeeded)
+            {
+                return ApiResult.Failure(userResult.Error);
+            }
+
+            return ApiResult.Ok(_mapper.Map<UserDto>(userResult.Value));
+        }
+
+        [HttpPut("buy-subscription")]
+        public async Task<ApiResult<UserDto>> BuySubscription(
+            [FromBody] BuySubscriptionDto buySubscriptionDto)
+        {
+            var userResult = await _userService.BuySubscription(
+                User.Identity.Name, buySubscriptionDto.DurebilityMonthsOneOrSix);
 
             if (!userResult.Succeeded)
             {

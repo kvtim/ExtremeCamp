@@ -175,6 +175,18 @@
           "Port": 5004
         }
       ]
+    },
+    {
+      "UpstreamPathTemplate": "/gateway/Users/buy-subscription",
+      "UpstreamHttpMethod": [ "Put" ],
+      "DownstreamPathTemplate": "/api/Users/buy-subscription",
+      "SwaggerKey": "UsersAPI",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ]
     }
   ],
   "SwaggerEndPoints": [

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Users.Core.Dtos.Subscription;
 using Users.Core.Models;
 
 namespace Users.Core.Dtos.User
@@ -14,6 +15,9 @@ namespace Users.Core.Dtos.User
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? UserName { get; set; }
+
         public Role Role { get; set; }
+
+        public SubscriptionDto? Subscription { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Users.Core.Models;
 using Users.Core.Services;
 
 namespace Users.Api.EventBusConsumer
@@ -36,7 +37,8 @@ namespace Users.Api.EventBusConsumer
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 UserName = user.UserName,
-                Role = user.Role.ToString()
+                Role = user.Role.ToString(),
+                isPremium = user.Subscription.SubscriptionType != SubscriptionTypes.FREE
             });
         }
     }

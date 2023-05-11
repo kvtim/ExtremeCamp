@@ -23,6 +23,7 @@ namespace Users.Data.Seed
                     UserName = "admin",
                     Password = "EA3E878ECF1BEA198F692A6B7C779A637C125DC7CD651447CB0E335BD030620F:313E4270A0204A72B73AFAE74E85D7D7",
                     Role = Role.Admin,
+                    SubscriptionId = 1
                 }
                 );
 
@@ -36,6 +37,7 @@ namespace Users.Data.Seed
                     UserName = "user",
                     Password = "2181B73726BAF731410388404BB9FDB409F7DEDA08F52562A9079537AE794C57:F759490F73BA694FDE0344691CA47230",
                     Role = Role.User,
+                    SubscriptionId = 2
                 }
                 );
         }

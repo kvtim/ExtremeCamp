@@ -69,12 +69,17 @@ namespace Meetups.Api.Controllers
                     Username = User.Identity.Name
                 });
 
+            if (!userResponse.Message.isPremium && userResponse.Message.Role != "Admin")
+            {
+                throw new ArgumentException("You haven't premium subscription to create meetups");
+            }
+
             var meetup = _mapper.Map<Meetup>(createMeetupDto);
             meetup.OwnerId = userResponse.Message.UserId;
 
             var meetupResult = await _mediator.Send(new CreateMeetupCommand()
             {
-                Meetup = _mapper.Map<Meetup>(createMeetupDto)
+                Meetup = meetup
             });
 
             return Ok(meetupResult);

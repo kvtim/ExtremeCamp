@@ -15,7 +15,9 @@ namespace Users.Core.Models
         public string? UserName { get; set; }
         public string? Password { get; set; }
 
-        public Role Role { get; set; }
+        public Role Role { get; set; } = Role.User;
 
+        public int? SubscriptionId { get; set; }
+        public Subscription? Subscription { get; set; }
     }
 }

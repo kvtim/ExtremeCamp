@@ -25,6 +25,11 @@ namespace Users.Services.Services
 
         public async Task<User> AddAsync(User user)
         {
+            user.Subscription = new Subscription()
+            {
+                SubscriptionType = SubscriptionTypes.FREE
+            };
+
             await _unitOfWork.UserRepository.AddAsync(user);
             await _unitOfWork.CommitAsync();
 
@@ -33,7 +38,7 @@ namespace Users.Services.Services
 
         public async Task<Result<IEnumerable<User>>> GetAllAsync()
         {
-            var users = await _unitOfWork.UserRepository.GetAllAsync();
+            var users = await _unitOfWork.UserRepository.GetAllWithSubscriptionAsync();
             if (users == null)
             {
                 return Result.Failure(ErrorType.NotFound, "Users not found");
@@ -94,6 +99,49 @@ namespace Users.Services.Services
             }
 
             userResult.Value.Password = _hasher.Hash(changePasswordDto.NewPassword);
+
+            return Result.Ok(await UpdateAsync(userResult.Value));
+        }
+
+        public async Task<Result<User>> BuySubscription(string userName, int months)
+        {
+            var userResult = await GetByUserNameAsync(userName);
+            if (!userResult.Succeeded)
+            {
+                return userResult;
+            }
+
+            if (userResult.Value.Subscription.SubscriptionType != SubscriptionTypes.FREE
+                && userResult.Value.Subscription.EndDate >= DateTime.Now)
+            {
+                return Result.Failure(ErrorType.BadRequest, "You already have a subscription");
+            }
+
+            userResult.Value.Subscription.StartDate = DateTime.Now;
+
+            switch(months)
+            {
+                case 1:
+                    {
+                        userResult.Value.Subscription.EndDate 
+                            = userResult.Value.Subscription.StartDate.AddMonths(1);
+                        userResult.Value.Subscription.SubscriptionType 
+                            = SubscriptionTypes.PREMIUMONEMONTH;
+                        break;
+                    }
+                case 6:
+                    {
+                        userResult.Value.Subscription.EndDate 
+                            = userResult.Value.Subscription.StartDate.AddMonths(6);
+                        userResult.Value.Subscription.SubscriptionType
+                            = SubscriptionTypes.PREMIUNSIXMONTHS;
+                        break;
+                    }
+                default:
+                    {
+                        return Result.Failure(ErrorType.BadRequest, "Wrong months count");
+                    }
+            }
 
             return Result.Ok(await UpdateAsync(userResult.Value));
         }

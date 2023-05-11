@@ -15,6 +15,17 @@ namespace Users.Data.Repositories
         {
         }
 
+        public async Task<User> GetByIdWithSubscriptionAsync(int id)
+        {
+            return await _dbSet.Include(c => c.Subscription)
+                .FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<IEnumerable<User>> GetAllWithSubscriptionAsync()
+        {
+            return await _dbSet.Include(c => c.Subscription).ToListAsync();
+        }
+
         public async Task<User> GetByUserNameAndPasswordAsync(string userName, string password)
         {
             return await _dbSet.SingleOrDefaultAsync(u => u.UserName == userName && u.Password == password);
@@ -22,7 +33,7 @@ namespace Users.Data.Repositories
 
         public async Task<User> GetByUserNameAsync(string userName)
         {
-            return await _dbSet.SingleOrDefaultAsync(u => u.UserName == userName);
+            return await _dbSet.Include(c => c.Subscription).SingleOrDefaultAsync(u => u.UserName == userName);
         }
     }
 }

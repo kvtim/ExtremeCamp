@@ -15,5 +15,6 @@ namespace Users.Core.Services
         Task<Result<User>> ChangePassword(string userName, ChangePasswordDto changePasswordDto);
         User SetPropertiesForUpdate(User user, UpdateUserDto userDto);
         Task<Result<User>> GetCheckedUser(int id, bool isUserAdmin, string userName);
+        Task<Result<User>> BuySubscription(string userName, int months);
     }
 }

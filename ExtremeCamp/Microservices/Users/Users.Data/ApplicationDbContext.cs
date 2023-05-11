@@ -12,6 +12,7 @@ namespace Users.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<User> Users { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -21,9 +22,9 @@ namespace Users.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new SubscriptionConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new UserSeed());
-
+            modelBuilder.Seed();
         }
     }
 }
